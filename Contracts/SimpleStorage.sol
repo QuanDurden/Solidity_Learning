@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.8;
+pragma solidity 0.8.8; 
+// for range of solidity versions use, eg. ^0.8.7; - means 0.8.7 - 0.8.12(current latest)
+// for specific range use, eg. >=0.8.7 <0.9.0; - ie. greater than or equal to 0.8.7 but
+// less than 0.9.0
 
 // Contracts in solidity like classes in Python/C++/etc.
 contract SimpleStorage{
@@ -16,7 +19,8 @@ contract SimpleStorage{
 
     // VARIABLES
 
-    // The uint below is initialised to 0
+    // The uint below is initialised to 0 (because no value has been specified it defaults to
+    // the null value)
     // uint256 public favNumber; // public keyword makes this visible/usable outside the 
     // contract
     uint256 favNumber;

@@ -8,14 +8,14 @@
 			{
 				"inputs": [
 					{
-						"internalType": "string",
-						"name": "_name",
-						"type": "string"
-					},
-					{
 						"internalType": "uint256",
 						"name": "_favNumber",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
 					}
 				],
 				"name": "addPerson",
@@ -106,7 +106,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Contracts/SimpleStorage.sol": "SimpleStorage"
+			"Contracts/NewStorage.sol": "NewStorage"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -120,12 +120,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"Contracts/SimpleStorage.sol": {
-			"keccak256": "0x2e3f73d752f8c00aeecbaf96f69681b130a3fdec312512350697d0f71c81a83d",
+		"Contracts/NewStorage.sol": {
+			"keccak256": "0x32982213250e2fad6ae50e2ee6dd3c6e75a7f9f9992a8a59f21d1722e62fa517",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e7b4dd44d3e01d37eeb5b1a034e12df166aa58ff1e7e6121ccec7bc50cb60e2a",
-				"dweb:/ipfs/QmQrEvzaJBJErrAQ9UKMtuPd89Y9JrStLsVJhE5fpa2icG"
+				"bzz-raw://6242b12c401874c5b7c3b3930cf0f09b6145d70c535fd9663da16810316db93b",
+				"dweb:/ipfs/QmfXdRdMsyH3bbMHH6wxFHDnjhjWT18LMKYTMEYbe6Fvma"
 			]
 		}
 	},
