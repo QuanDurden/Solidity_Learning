@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.8+commit.dddeac2f"
+		"version": "0.8.26+commit.8a97fa7a"
 	},
 	"language": "Solidity",
 	"output": {
@@ -129,7 +129,7 @@
 		"compilationTarget": {
 			"Contracts/CoinFlip.sol": "CoinFlip"
 		},
-		"evmVersion": "london",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -142,11 +142,11 @@
 	},
 	"sources": {
 		"Contracts/CoinFlip.sol": {
-			"keccak256": "0x89ded6517790e0cf076da6eb654d2ad79ba1ab1bdb8729a1bba0047dec90d4bd",
+			"keccak256": "0x91292cd1a5440d1bf207a103889ff2ccc306898af142073f1fd40d4d1290bcc3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c7e50a5c1e57a30aabdb94ac50fcbbf84bc870e40341cdd83729b089c85fe56f",
-				"dweb:/ipfs/QmcZT24tgR879R2mahounXzdugffoGH2ShWR8DhRUhTTut"
+				"bzz-raw://3e97f1c8caa41f2e698225c2d0aaf2c04d496fc71040417b7949e97c4b68c989",
+				"dweb:/ipfs/QmQdLEnvoVz6daHpvBAW5zVoSqGz6LmGQvSxudyDFD786g"
 			]
 		}
 	},

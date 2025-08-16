@@ -5,6 +5,7 @@ contract CoinFlip {
 
     // Variables
 
+    // address payable playerAddress;
     address payable player1Address = payable (0x0); // player address variable
     address payable player2Address = payable (0x0); // player address variable
 
