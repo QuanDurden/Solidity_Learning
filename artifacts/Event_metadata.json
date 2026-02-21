@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.26+commit.8a97fa7a"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
@@ -53,7 +53,7 @@
 		"compilationTarget": {
 			"Contracts/Events.sol": "Event"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -66,11 +66,11 @@
 	},
 	"sources": {
 		"Contracts/Events.sol": {
-			"keccak256": "0x79b68fb41c3e977d172932cf821d4d9556f0ab095d5746e91b01d69b6ad69951",
+			"keccak256": "0xc1285080d35bf2bb0831f639d12674b580761003d626a22227fa4660bda7f5b3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5eec35c778a4accbd6f65505bc75aae60a233663d22c1ad4bcdcba9e715a5a5d",
-				"dweb:/ipfs/QmbWNNDb8c1fcP5cmswG8D5XWVcK4ukQvKxw5EK6hZqVLr"
+				"bzz-raw://33b788af78bd8dc8349432f9683282c3c3e0c34da22ef4564ccee12467d9d541",
+				"dweb:/ipfs/Qmf7CS8vhbBS4kiEEWiHZ8sPuYA2AEDZr9XDqkYFss3aZg"
 			]
 		}
 	},

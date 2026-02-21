@@ -1,0 +1,137 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "NotOwner",
+				"type": "error"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "addressToAmountFunded",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "fund",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "funders",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "i_owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Contracts/FundMeWithLibraray.sol": "FundMe"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Contracts/FundMeWithLibraray.sol": {
+			"keccak256": "0x7c52ab193353f67b84786cfd7b2ec19c055212c46fac0f5bab9af29bafff96fb",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4d52a3a2025d16a7abb494a861b57506231c75cd56174df2dc52ab420b59ef72",
+				"dweb:/ipfs/QmPa9RJpA419JMrPhea1a1Hjo3ZuwWAFx1jb646Ba1AA6r"
+			]
+		},
+		"Contracts/PriceConverter.sol": {
+			"keccak256": "0x4050b83e68dcea2a626940e3ac2a3533abed7b93bcecf702052f668a02ae5fef",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9a31884e3ca799aef8aa4e748914cc66e6738d4e042f6508536577b22145d869",
+				"dweb:/ipfs/QmUMqBHotH5tPKbyENWhcjVtX4PmRVA2eRstQ1YnCs9ETf"
+			]
+		}
+	},
+	"version": 1
+}
