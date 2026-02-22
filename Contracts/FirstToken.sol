@@ -20,7 +20,7 @@ contract FirstToken is ERC20 {
     uint256 public price = 0;
 
     // Also need a mapping to store user balances
-    mapping(address account => uint256) private balance;
+    mapping(address => uint256) private balance;
 
 
     // CONSTRUCTOR
@@ -32,13 +32,6 @@ contract FirstToken is ERC20 {
 
 
     //FUNCTIONS
-
-    // function to define the bonding curve
-    // basic linear bonding curve: y = mx + c
-    //function bondingCurve () public pure {
-    //    uint8 gradient = 1;
-    //    uint8 base_price = 1;
-    //}
 
     // Function to calculate token purchase price using bonding curve
     function getPurchasePrice(uint256 quantity) public returns(uint256) {
@@ -73,19 +66,6 @@ contract FirstToken is ERC20 {
         return price;
     }
 
-    // Function to mint new tokens and send them to a buyer
-    function mint(address recipient, uint256 quantity) internal {
-        // mint the requested/bought tokens and send them to the user
-        // _mint() function from the imported contract calls _update()
-        // which updates the total supply and balance of user
-        _mint(recipient, quantity);
-        // still need to update the value of _totalSupply variable in this contract
-        // by calling totalSupply() function from imported contract
-        _totalSupply = totalSupply();
-        // and update user's balance in this contract
-        balance[recipient] = balanceOf(recipient);
-    }
-
     // Function to mint/enable buying of new tokens
     function buyTokens(uint256 quantity) external payable {
 
@@ -99,15 +79,14 @@ contract FirstToken is ERC20 {
         require(msg.value >= price, "Insufficient WEI sent");
 
         // mint the requested/bought tokens and send them to the user
-        mint(recipient, quantity);
         // _mint() function from the imported contract calls _update()
         // which updates the total supply and balance of user
-        //_mint(recipient, quantity);
+        _mint(recipient, quantity);
         // still need to update the value of _totalSupply variable in this contract
         // by calling totalSupply() function from imported contract
-        //_totalSupply = totalSupply();
+        _totalSupply = totalSupply();
         // and update user's balance in this contract
-        //balance[recipient] = balanceOf(recipient);
+        balance[recipient] = balanceOf(recipient);
     }
 
     // Function to calculate token sale price using bonding curve
@@ -133,16 +112,9 @@ contract FirstToken is ERC20 {
         _totalSupply = totalSupply();
         // and update seller's balance in this contract
         balance[seller] = balanceOf(seller);
-
         // pay the seller
         (bool callSuccess, ) = payable(seller).call{value: price}("");
         require(callSuccess, "Payment failed");
-        // if, having burned the seller's tokens and removed them from the seller's
-        // balance, the payment fails, mint the burned tokens again and return them
-        // to the seller
-        if(!callSuccess) {
-            mint(seller, quantity);
-        }
     }
 
 }
