@@ -259,6 +259,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"name": "getSalePrice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "name",
 				"outputs": [
@@ -273,7 +292,20 @@
 			},
 			{
 				"inputs": [],
-				"name": "price",
+				"name": "purchasePrice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "salePrice",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -294,7 +326,7 @@
 				],
 				"name": "sellTokens",
 				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -535,11 +567,11 @@
 			]
 		},
 		"Contracts/FirstToken.sol": {
-			"keccak256": "0xb1024b8564f2b854ee0aa75790c903cb4f976a07847d4f2407bb50d8e6ef7ebb",
+			"keccak256": "0xcbaad22524aa88c19ed1f2ade076d50fadbdceecb1a5cea8394957100e05dc06",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2922dfee1651405e08a43f2a8186d9fb857f2dadbd7666cfa29daf9cedd47ae0",
-				"dweb:/ipfs/QmPrEsKfENsAYJSEoWcyhoMNACtxUThnfBb3pWBeSjhU8d"
+				"bzz-raw://ea591ee9ecf35f178bf1c5af78488264a5763204596ef04dc4a0d52fd7678bd2",
+				"dweb:/ipfs/QmYRtdGa35JGAt79Z3nZgCkZAWv5FqJ9YjVoh7Kh34qKZL"
 			]
 		}
 	},
