@@ -71,7 +71,7 @@ contract FundMe {
             addressToAmountFunded[funder] = 0;
         }
 
-        // We still need to reset the array - remove everything that is currently stored in it
+        // We still need to reset the array - hypothetical remove everything that is currently stored in it
         funders = new address[](0);
         // ie. funders = a new address array with 0 objects/elements in it
 

@@ -4,7 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract FirstToken is ERC20 {
-    
+
 
     // VARIABLES
 
@@ -15,17 +15,18 @@ contract FirstToken is ERC20 {
     // Initialise supply
     uint256 _totalSupply = 0; // initial supply is 0
 
-    // Initial token purchase and sale prices are 0 - technically, according to the bonding 
-    // curve we are using, when the supply = 0, ie. there are no tokens in circulation, the 
+    // Initial token purchase and sale prices are 0 - technically, according to the bonding
+    // curve we are using, when the supply = 0, ie. there are no tokens in circulation, the
     // price should be 1
     // However, this makes no real world sense - no-one will pay 1 wei for nothing
     uint256 public purchasePrice = 0;
     uint256 public salePrice = 0;
-    uint256 hypotheticalPrice = 0;
+    // For use in getHypotheticalPrice() function below
+    uint256 public hypotheticalPrice = 0;
 
     // parameters of the linear bonding curve used to calculate price
-    uint256 gradient = 1;
-    uint256 intercept = 1;
+    uint256 constant gradient = 1;
+    uint256 constant intercept = 1;
 
     // Also need a mapping to store user balances
     mapping(address => uint256) private balance;
@@ -39,9 +40,9 @@ contract FirstToken is ERC20 {
     constructor() ERC20(tokenName, tokenSymbol) {}
 
 
-    //FUNCTIONS
+    // FUNCTIONS
 
-    // Function to calculate token purchase purchase price using bonding curve
+    // Function to calculate token purchase price using bonding curve
     function getPurchasePrice(uint256 quantity) public returns(uint256) {
         // how many tokens does user want - need quantity
         // how many tokens are there already - need totalSupply
@@ -76,51 +77,44 @@ contract FirstToken is ERC20 {
         // how many tokens does user want to sell - need quantity
         // how many tokens are there already - need totalSupply
 
-        if (quantity > _totalSupply && _totalSupply > 0) {
-            uint256 hypotheticalSupply = quantity;
-            salePrice = getHypotheticalPrice(quantity, hypotheticalSupply);
-        }
-        else {
-            // If there are some tokens in circulation, calculate the sale price for the requested
-            // number of tokens
-            // if there are no tokens in circulation no tokens can be sold and sale price = 0
-            if (_totalSupply > 0) {
-                // reset sale price to 0
-                salePrice = 0;
-                // Use a for loop to sum the spot prices of each individual token
-                // starting at current '_totalSupply' and counting down to '_totalSupply - quantity'
-                // because 'quantity' tokens will be sold back to the contract and removed from
-                // _totalSupply by burning
-                for(uint256 supply = _totalSupply; supply > _totalSupply - quantity; supply--) {
-                    uint256 spot_price = (gradient * supply) + intercept;
-                    salePrice += spot_price;
-                }
-            }
-            else {
-                salePrice = 0;
-            }
+        // require that user is not trying to sell more tokens than exist
+        require(quantity <= _totalSupply, "That is more than total token supply. Use hypothetical price.");
+
+        // reset sale price to 0
+        salePrice = 0;
+        // Use a for loop to sum the spot prices of each individual token
+        // starting at current '_totalSupply' and counting down to '_totalSupply - quantity'
+        // because 'quantity' tokens will be sold back to the contract and removed from
+        // _totalSupply by burning
+        for(uint256 supply = _totalSupply; supply > _totalSupply - quantity; supply--) {
+            uint256 spot_price = (gradient * supply) + intercept;
+            salePrice += spot_price;
         }
 
         return salePrice;
     }
 
-    function getHypotheticalPrice(uint256 quantity, uint256 hypotheticalSupply) internal returns(uint256) {
+    // function that enables a user to determine a price they might hypothetically receive for a
+    // quantity of tokens and hypothetical supply (which can be more or less than the actual current
+    // total supply) that they can specify
+    function getHypotheticalPrice(uint256 quantity, uint256 hypotheticalSupply) public {
 
+        // reset hypothetical price to 0
         hypotheticalPrice = 0;
+
+        // require that user is not trying to sell more tokens than hypothetically exist
+        require(quantity <= hypotheticalSupply, "Quantity must be less than or equal to hypothetical suuply");
+
         // Use a for loop to sum the spot prices of each individual token
-        // starting at current '_totalSupply' and counting down to '_totalSupply - quantity'
-        // because 'quantity' tokens will be sold back to the contract and removed from
-        // _totalSupply by burning
+        // starting at user-entered 'hypotheticalSupply' and counting down to 'hypotheticalSupply - quantity'
         for(uint256 supply = hypotheticalSupply; supply > hypotheticalSupply - quantity; supply--) {
             uint256 spot_price = (gradient * supply) + intercept;
             hypotheticalPrice += spot_price;
         }
-
-        return hypotheticalPrice;
     }
 
     // Function to mint/enable buying of new tokens
-    function buyTokens(uint256 quantity) external payable {
+    function buyTokens(uint256 quantity) public payable {
 
         address recipient = msg.sender; // address to send the bought tokens to
 
@@ -140,10 +134,15 @@ contract FirstToken is ERC20 {
         _totalSupply = totalSupply();
         // and update user's balance in this contract
         balance[recipient] = balanceOf(recipient);
+
+        // finally reset purchasePrice to 0 so that the next time the user calls
+        // purchasePrice getter function they do not see the value of the last
+        // purchase
+        purchasePrice = 0;
     }
 
     // Function to burn/enable selling of tokens
-    function sellTokens(uint256 quantity) external {
+    function sellTokens(uint256 quantity) public {
 
         address seller = msg.sender; // address selling tokens
 
@@ -163,9 +162,37 @@ contract FirstToken is ERC20 {
         _totalSupply = totalSupply();
         // and update seller's balance in this contract
         balance[seller] = balanceOf(seller);
+
         // pay the seller
         (bool callSuccess, ) = payable(seller).call{value: salePrice}("");
         require(callSuccess, "Payment failed");
+
+        // finally reset saleePrice to 0 so that the next time the user calls
+        // salePrice getter function they do not see the value of the last
+        // sale
+        salePrice = 0;
+    }
+
+    receive () external payable {
+        // If a user accidentally sends this contract WEI without calling the buyTokens()
+        // function, the buyTokens() function will automatically be called for them
+        // In this case we want the buyTokens() function to revert until/unless the user
+        // actaully calls it properly, sepcifying how many tokens they want to buy
+
+        // setting quantity = 0 will cause buyTokens() function to revert
+        uint256 quantity = 0;
+        buyTokens(quantity);
+    }
+
+    fallback() external payable {
+        // If a user accidentally sends this contract WEI without calling the buyTokens()
+        // function, the buyTokens() function will automatically be called for them
+        // In this case we want the buyTokens() function to revert until/unless the user
+        // actaully calls it properly, sepcifying how many tokens they want to buy
+
+        // setting quantity = 0 will cause buyTokens() function to revert
+        uint256 quantity = 0;
+        buyTokens(quantity);
     }
 
 }
