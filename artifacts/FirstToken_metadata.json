@@ -340,6 +340,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "reserveBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "salePrice",
 				"outputs": [
 					{
@@ -606,11 +619,11 @@
 			]
 		},
 		"Contracts/FirstToken.sol": {
-			"keccak256": "0x0201cd81c55e8a3e355eb15f955214cab9dde0769fba16c4ff934141c93dab7b",
+			"keccak256": "0x155342ea240a3c0ef1772d0f805f257107cc3868db080526d967ccb0f454554b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://06be85858f43a85208eefcbb7fa21f30f9f8fb65c757ee53df85325a6d523d82",
-				"dweb:/ipfs/QmbtFpUyc1pQTsrmv76oieFT2V5QWpxLEeFXDBBKvezA7F"
+				"bzz-raw://f6df598f76cedf9f226d367b917e4890b50456dae470a99e013789a4125a0c3a",
+				"dweb:/ipfs/Qme3bshzUL4dBdvfBbxUyM2uLCgubAh9N1ZAzgxgkqLnhZ"
 			]
 		}
 	},

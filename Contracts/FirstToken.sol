@@ -18,11 +18,14 @@ contract FirstToken is ERC20 {
     // Initial token purchase and sale prices are 0 - technically, according to the bonding
     // curve we are using, when the supply = 0, ie. there are no tokens in circulation, the
     // price should be 1
-    // However, this makes no real world sense - no-one will pay 1 wei for nothing
+    // However, this makes no real world sense - no-one will pay 1 WEI for nothing
     uint256 public purchasePrice = 0;
     uint256 public salePrice = 0;
     // For use in getHypotheticalPrice() function below
     uint256 public hypotheticalPrice = 0;
+
+    // Initialise balance of WEI stored in this contract 
+    uint256 public reserveBalance = 0;  //initial balance is 0
 
     // parameters of the linear bonding curve used to calculate price
     uint256 constant gradient = 1;
@@ -134,6 +137,8 @@ contract FirstToken is ERC20 {
         _totalSupply = totalSupply();
         // and update user's balance in this contract
         balance[recipient] = balanceOf(recipient);
+        // update the reserve balance of this contract
+        reserveBalance += purchasePrice;
 
         // finally reset purchasePrice to 0 so that the next time the user calls
         // purchasePrice getter function they do not see the value of the last
@@ -166,6 +171,9 @@ contract FirstToken is ERC20 {
         // pay the seller
         (bool callSuccess, ) = payable(seller).call{value: salePrice}("");
         require(callSuccess, "Payment failed");
+
+        // update the reserve balance of this contract
+        reserveBalance -= salePrice;
 
         // finally reset saleePrice to 0 so that the next time the user calls
         // salePrice getter function they do not see the value of the last
